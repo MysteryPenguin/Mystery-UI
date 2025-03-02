@@ -1,15 +1,13 @@
-import { useState, ReactNode, MouseEventHandler } from "react";
+import { useState, ReactNode, MouseEventHandler, HTMLAttributes } from "react";
 
 import "../css/fonts.css";
 
 import { clone } from "../utils/clone";
 import { Color } from "../utils/color";
 
-interface ButtonProps {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     buttonStyle?: ButtonStyleProps;
     children: ReactNode;
-    onClick?: MouseEventHandler<HTMLButtonElement>;
-    type?: "submit" | "reset" | "button"
 }
 
 interface ButtonStyleProps {
@@ -21,6 +19,7 @@ interface ButtonStyleProps {
 /**
  * 
  * A button with a prefabricated design
+ * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Button
  * 
  */
 export function Button({
@@ -30,8 +29,7 @@ export function Button({
         borderRadius: "16px"
     },
     children,
-    onClick,
-    type
+    ...props
 }: ButtonProps) {
     if (!buttonStyle.backgroundColor) buttonStyle.backgroundColor = new Color.RGB(24, 215, 54);
     if (!buttonStyle.color) buttonStyle.color = "white";
@@ -50,7 +48,7 @@ export function Button({
                 borderRight: "none",
                 borderLeft: "none",
                 backgroundColor: buttonStyle.backgroundColor.transformToCSS(),
-                height: isActive ? "calc(20% - 4px)" : "20%",
+                height: isActive ? "calc(100% - 4px)" : "100%",
                 width: "100%",
                 borderRadius: buttonStyle.borderRadius,
                 marginTop: isActive ? "4px" : "0px",
@@ -59,13 +57,27 @@ export function Button({
                 outline: "none"
             }}
             className="comic-neue"
-            onMouseDown={() => setIsActive(true)}
-            onMouseUp={() => setIsActive(false)}
-            onMouseLeave={() => setIsActive(false)}
-            onTouchStart={() => setIsActive(true)}
-            onTouchEnd={() => setIsActive(false)}
-            onClick={onClick}
-            type={type}
+            onMouseDown={(e) => { 
+                setIsActive(true); 
+                if (props.onMouseDown) props.onMouseDown(e);
+            }}
+            onMouseUp={(e) => { 
+                setIsActive(false); 
+                if (props.onMouseUp) props.onMouseUp(e); 
+            }}
+            onMouseLeave={(e) => { 
+                setIsActive(false); 
+                if (props.onMouseLeave) props.onMouseLeave(e); 
+            }}
+            onTouchStart={(e) => {
+                setIsActive(true);
+                if (props.onTouchStart) props.onTouchStart(e);
+            }}
+            onTouchEnd={(e) => { 
+                setIsActive(false);
+                if (props.onTouchEnd) props.onTouchEnd(e);
+            }}
+            {...props}
         >
             {children}
         </button>
