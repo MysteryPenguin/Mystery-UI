@@ -4,26 +4,29 @@ export abstract class Color {
     abstract third: number;
     abstract fourth?: number;
 
-    public abstract add(value: number): this;
+    public add(value: number, a: number = 0): this {
+        this.first += value;
+        this.second += value;
+        this.third += value;
+        
+        if (this.fourth) this.fourth += a;
+
+        return this;
+    }
+
     public abstract transformToCSS(): string;
 
-    static RGB = class {
+    public static RGB = class RGB extends Color {
+        fourth?: number;
         first: number;
         second: number;
         third: number;
 
-        constructor(red: number, green: number, blue: number) {
+        public constructor(red: number, green: number, blue: number) {
+            super();
             this.first = red;
             this.second = green;
             this.third = blue;
-        }
-
-        public add(value: number) {
-            this.first += value;
-            this.second += value;
-            this.third += value;
-
-            return this;
         }
 
         public transformToCSS() {
@@ -31,26 +34,18 @@ export abstract class Color {
         }
     }
 
-    static RGBA = class {
+    public static RGBA = class RGBA extends Color {
         first: number;
         second: number;
         third: number;
         fourth: number;
 
         public constructor(red: number, green: number, blue: number, alpha: number) {
+            super();
             this.first = red;
             this.second = green;
             this.third = blue;
             this.fourth = alpha;
-        }
-
-        public add(value: number, alpha: number) {
-            this.first += value;
-            this.second += value;
-            this.third += value;
-            this.fourth += alpha;
-
-            return this;
         }
 
         public transformToCSS() {
@@ -58,9 +53,19 @@ export abstract class Color {
         }
     }
 
-    static white = new this.RGB(255, 255, 255);
-    static black = new this.RGB(0, 0, 0);
-    static red = new this.RGB(255, 0, 0);
-    static green = new this.RGB(0, 255, 0);
-    static blue = new this.RGB(0, 0, 255);
+    public static WHITE = new this.RGB(255, 255, 255);
+    public static BLACK = new this.RGB(0, 0, 0);
+
+    public static RED = new this.RGB(255, 0, 0);
+    public static ORANGE = new this.RGB(255, 127, 0);
+    public static YELLOW = new this.RGB(255, 255, 0);
+    public static LIME = new this.RGB(127, 255, 0);
+    public static GREEN = new this.RGB(0, 255, 0);
+    public static AQUAMARINE = new this.RGB(0, 255, 127);
+    public static CYAN = new this.RGB(0, 255, 255);
+    public static SKY_BLUE = new this.RGB(0, 127, 255);
+    public static BLUE = new this.RGB(0, 0, 255);
+    public static PURPLE = new this.RGB(127, 0, 255)
+    public static VIOLET = new this.RGB(255, 0, 255);
+    public static PINK = new this.RGB(255, 0, 127);
 }
