@@ -1,9 +1,22 @@
+/**
+ * 
+ * A class to define colors which still have to be calculated mathematically
+ * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color
+ * 
+ */
 export abstract class Color {
     abstract first: number;
     abstract second: number;
     abstract third: number;
     abstract fourth?: number;
 
+    /**
+     * 
+     * Adds something to the Color.
+     * @param a An extra param if tranparency is used
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color#methods
+     * 
+     */
     public add(value: number, a: number = 0): this {
         this.first += value;
         this.second += value;
@@ -14,8 +27,16 @@ export abstract class Color {
         return this;
     }
 
+    /**
+     * Transforms the Object Color to a color CSS is able read
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color#methods
+     */
     public abstract transformToCSS(): string;
 
+    /**
+     * Defines a color saved in rgb-format
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color#rgb
+     */
     public static RGB = class RGB extends Color {
         fourth?: number;
         first: number;
@@ -34,6 +55,10 @@ export abstract class Color {
         }
     }
 
+    /**
+     * Defines a color saved in rgba-format
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color#rgba
+     */
     public static RGBA = class RGBA extends Color {
         first: number;
         second: number;
