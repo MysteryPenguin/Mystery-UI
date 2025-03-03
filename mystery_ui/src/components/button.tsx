@@ -1,7 +1,5 @@
 import { useState, ReactNode, HTMLAttributes } from "react";
 
-import "../css/fonts.css";
-
 import { clone } from "../utils/clone";
 import { Color } from "../utils/color";
 
@@ -14,6 +12,7 @@ interface ButtonStyleProps {
     backgroundColor?: Color;
     color?: string;
     borderRadius?: string;
+    font?: string;
 }
 
 /**
@@ -26,7 +25,8 @@ export function Button({
     buttonStyle = {
         backgroundColor: new Color.RGB(24, 215, 54),
         color: "white",
-        borderRadius: "16px"
+        borderRadius: "16px",
+        font: "'Comic Neue', cursive"
     },
     children,
     ...props
@@ -34,6 +34,7 @@ export function Button({
     if (!buttonStyle.backgroundColor) buttonStyle.backgroundColor = new Color.RGB(24, 215, 54);
     if (!buttonStyle.color) buttonStyle.color = "white";
     if (!buttonStyle.borderRadius) buttonStyle.borderRadius = "16px";
+    if (!buttonStyle.font) buttonStyle.font = "'Comic Neue', cursive";
 
     const [isActive, setIsActive] = useState(false);
     const borderColor = clone(buttonStyle.backgroundColor);
@@ -54,7 +55,10 @@ export function Button({
                 marginTop: isActive ? "4px" : "0px",
                 color: buttonStyle.color,
                 textAlign: "center",
-                outline: "none"
+                outline: "none",
+                fontWeight: 700,
+                fontStyle: "normal",
+                fontFamily: buttonStyle.font
             }}
             className="comic-neue"
             onMouseDown={(e) => { 
