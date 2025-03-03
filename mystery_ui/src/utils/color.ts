@@ -21,7 +21,7 @@ export abstract class Color {
         this.first += value;
         this.second += value;
         this.third += value;
-        
+
         if (this.fourth) this.fourth += a;
 
         return this;

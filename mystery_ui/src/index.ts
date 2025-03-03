@@ -1,4 +1,5 @@
 import { Button } from "./components/button";
-import { clone } from "./utils/clone";
 import { Color } from "./utils/color";
-export { Button, clone, Color };
+import { clone } from "./utils/clone";
+
+export { Button, Color, clone };

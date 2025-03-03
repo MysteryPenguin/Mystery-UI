@@ -1,4 +1,4 @@
-import { useState, ReactNode, MouseEventHandler, HTMLAttributes } from "react";
+import { useState, ReactNode, HTMLAttributes } from "react";
 
 import "../css/fonts.css";
 
