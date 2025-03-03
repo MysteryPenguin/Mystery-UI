@@ -1,6 +1,6 @@
 {
   "name": "mystery-ui",
-  "version": "pre-release-0.1.0",
+  "version": "0.1.0-rc1",
   "description": "An UI component library for react apps.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
