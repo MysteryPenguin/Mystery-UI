@@ -3,7 +3,7 @@ import MysteryUI from "mystery-ui";
 
 function App() {
   return (
-      <MysteryUI.Button>Text</MysteryUI.Button>
+      <MysteryUI.Input>Text</MysteryUI.Input>
   )
 }
 

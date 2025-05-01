@@ -1,25 +1,50 @@
-export { Button } from "./components/button";
-export { Input } from "./components/input";
-export { Color } from "./utils/color";
-export { clone } from "./utils/clone";
-export { config } from "./config";
+import { Button } from "./components/button";
+import { Input } from "./components/input";
+import { Color } from "./utils/color";
+import { clone } from "./utils/clone";
+import { config } from "./config";
 
-// Error: namespace child (hoisting) not supported yet. You have to add it manually into dist/index.d.ts
-import * as ButtonMod from "./components/button";
-import * as InputMod from "./components/input";
-import * as ColorMod from "./utils/color";
-import * as CloneMod from "./utils/clone";
-import * as ConfigMod from "./config";
+export { Button, Input, Color, clone, config }
 
 /**
  * The namespace where everything of the library is stored
  */
-namespace MysteryUI {
-    export import Button = ButtonMod.Button;
-    export import Input = InputMod.Input;
-    export import Color = ColorMod.Color;
-    export import clone = CloneMod.clone;
-    export import config = ConfigMod.config;
+const MysteryUI = {
+    /**
+     * 
+     * A button with a prefabricated design
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Button
+     * 
+     */
+    Button,
+
+    /**
+     * 
+     * A prefabricated input for faster and easier styling
+     * 
+     */
+    Input,
+
+    /**
+     * 
+     * A class to define colors which still have to be calculated mathematically
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Color
+     * 
+     */
+    Color,
+
+    /**
+     * 
+     * Clones an object
+     * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Functions#clone
+     * 
+     */
+    clone,
+
+    /**
+     * The global config for the default param values of the components
+     */
+    config
 }
 
 export default MysteryUI;
