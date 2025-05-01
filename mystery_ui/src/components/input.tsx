@@ -1,4 +1,5 @@
-import { ChangeEventHandler, HTMLAttributeAnchorTarget, HTMLAttributes, ReactNode, useState } from "react";
+import { HTMLAttributes, ReactNode, useState } from "react";
+import { config } from "../config";
 
 interface InputProps {
     text?: string;
@@ -23,10 +24,10 @@ interface InputPropsProps {
  * A prefabricated input for faster and easier styling
  * 
  */
-export function Input({ 
+export function Input({
     inputStyle = {
-        borderColor: "white"
-    }, 
+        borderColor: config.input.borderColor
+    },
     text = "",
     children,
     props
@@ -35,36 +36,46 @@ export function Input({
     const [above, setAbove] = useState(false);
 
     return (
-        <div style={{
-            backgroundColor: "transparent",
-            border: "none",
-            borderBottom: `solid 2px ${inputStyle.borderColor}`,
-            display: "flex",
-            justifyContent: "left"
-        }}>
-            <input 
+        <div
+            style={{
+                backgroundColor: "transparent",
+                border: "none",
+                borderBottom: `solid 2px ${inputStyle.borderColor}`,
+                display: "flex",
+                justifyContent: "left"
+            }}
+            {...props?.element}
+        >
+            <input
                 style={{
                     outline: "none",
                     border: "none",
                     backgroundColor: "transparent",
                     fontSize: "1em",
                     zIndex: 1
-                }} 
+                }}
                 onFocus={() => setAbove(true)}
                 onBlur={(e) => { if (!e.target.value) setAbove(false) }}
+                {...props?.input}
             />
-            <div style={{ 
-                width: "10%", 
-                justifyContent: "center", 
-                display: "flex"
-            }}>{children}</div>
-            <span 
+            <div 
                 style={{
-                    position: "absolute", 
+                    width: "10%",
+                    justifyContent: "center",
+                    display: "flex"
+                }}
+                {...props?.icon}
+            >
+                {children}
+            </div>
+            <span
+                style={{
+                    position: "absolute",
                     marginTop: above ? "-12.5px" : "0px",
                     fontSize: above ? "0.75em" : "1em",
-                    transition: "all 1s ease"
+                    transition: "all 0.4s ease"
                 }}
+                {...props?.text}
             >
                 {text}
             </span>

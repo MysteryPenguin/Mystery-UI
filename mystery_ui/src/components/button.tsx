@@ -2,6 +2,7 @@ import { useState, ReactNode, HTMLAttributes } from "react";
 
 import { clone } from "../utils/clone";
 import { Color } from "../utils/color";
+import { config } from "../config";
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     buttonStyle?: ButtonStyleProps;
@@ -23,18 +24,18 @@ interface ButtonStyleProps {
  */
 export function Button({
     buttonStyle = {
-        backgroundColor: new Color.RGB(24, 215, 54),
-        color: "white",
-        borderRadius: "16px",
-        font: "'Comic Neue', cursive"
+        backgroundColor: config.button.backgroundColor,
+        color: config.button.color,
+        borderRadius: config.button.borderRadius,
+        font: config.button.font
     },
     children,
     ...props
 }: ButtonProps) {
-    if (!buttonStyle.backgroundColor) buttonStyle.backgroundColor = new Color.RGB(24, 215, 54);
-    if (!buttonStyle.color) buttonStyle.color = "white";
-    if (!buttonStyle.borderRadius) buttonStyle.borderRadius = "16px";
-    if (!buttonStyle.font) buttonStyle.font = "'Comic Neue', cursive";
+    if (!buttonStyle.backgroundColor) buttonStyle.backgroundColor = config.button.backgroundColor;
+    if (!buttonStyle.color) buttonStyle.color = config.button.color;
+    if (!buttonStyle.borderRadius) buttonStyle.borderRadius = config.button.borderRadius;
+    if (!buttonStyle.font) buttonStyle.font = config.button.font;
 
     const [isActive, setIsActive] = useState(false);
     const borderColor = clone(buttonStyle.backgroundColor);
@@ -61,26 +62,11 @@ export function Button({
                 fontFamily: buttonStyle.font
             }}
             className="comic-neue"
-            onMouseDown={(e) => { 
-                setIsActive(true); 
-                if (props.onMouseDown) props.onMouseDown(e);
-            }}
-            onMouseUp={(e) => { 
-                setIsActive(false); 
-                if (props.onMouseUp) props.onMouseUp(e); 
-            }}
-            onMouseLeave={(e) => { 
-                setIsActive(false); 
-                if (props.onMouseLeave) props.onMouseLeave(e); 
-            }}
-            onTouchStart={(e) => {
-                setIsActive(true);
-                if (props.onTouchStart) props.onTouchStart(e);
-            }}
-            onTouchEnd={(e) => { 
-                setIsActive(false);
-                if (props.onTouchEnd) props.onTouchEnd(e);
-            }}
+            onMouseDown={(e) => setIsActive(true)}
+            onMouseUp={(e) => setIsActive(false)}
+            onMouseLeave={(e) => setIsActive(false)}
+            onTouchStart={(e) => setIsActive(true)}
+            onTouchEnd={(e) => setIsActive(false)}
             {...props}
         >
             {children}

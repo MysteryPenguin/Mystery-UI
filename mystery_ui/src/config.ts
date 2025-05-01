@@ -1,12 +1,25 @@
 import { Color } from "./utils/color";
 
 class Config {
-    setSpecific<T extends keyof this>(ident: T, value: typeof this[T]) {
-        this[ident] = value;
+    /**
+     * Sets a specific property of the config
+     * 
+     * @param property The name of the property
+     * @param value The value you want to set the property on
+     */
+    setSpecific<T extends keyof this>(property: T, value: typeof this[T]): void {
+        this[property] = value;
     }
 
-    set(value: this) {
-        return value;
+    /**
+     * Sets every property of the class
+     * 
+     * @param values Every property of the class
+     */
+    set(object: this): void {
+        for (const property in object) {
+            this[property] = object[property]
+        }
     }
 }
 
@@ -26,4 +39,8 @@ class DefaultConfig extends Config {
     input = new InputConfig();
 }
 
-export const defaultConfig = new DefaultConfig();
+
+/**
+ * The global config for the default param values of the components
+ */
+export const config = new DefaultConfig();
