@@ -1,44 +1,39 @@
 import { useState, ReactNode, HTMLAttributes } from "react";
-
 import { clone } from "../utils/clone";
 import { Color } from "../utils/color";
-import { config } from "../config";
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-    buttonStyle?: ButtonStyleProps;
+    buttonStyle?: Partial<ButtonStyleProps>;
     children: ReactNode;
 }
 
 interface ButtonStyleProps {
-    backgroundColor?: Color;
-    color?: string;
-    borderRadius?: string;
-    font?: string;
+    backgroundColor: Color;
+    color: string;
+    borderRadius: string;
+    font: string;
 }
 
 /**
  * 
- * A button with a prefabricated design
- * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Button
+ * A button with a prefabricated style
  * 
+ * {@link(https://github.com/MysteryPenguin/Mystery-UI/wiki Mystery-UI Docs)}
  */
 export function Button({
-    buttonStyle = {
-        backgroundColor: config.button.backgroundColor,
-        color: config.button.color,
-        borderRadius: config.button.borderRadius,
-        font: config.button.font
-    },
+    buttonStyle = {},
     children,
     ...props
 }: ButtonProps) {
-    if (!buttonStyle.backgroundColor) buttonStyle.backgroundColor = config.button.backgroundColor;
-    if (!buttonStyle.color) buttonStyle.color = config.button.color;
-    if (!buttonStyle.borderRadius) buttonStyle.borderRadius = config.button.borderRadius;
-    if (!buttonStyle.font) buttonStyle.font = config.button.font;
+    const mergedStyle = {
+        backgroundColor: buttonStyle.backgroundColor ?? new Color.RGB(24, 215, 54),
+        color: buttonStyle.color ?? "white",
+        borderRadius: buttonStyle.borderRadius ?? "16px",
+        font: buttonStyle.font ?? "'Comic Neue', cursive",
+    };
 
     const [isActive, setIsActive] = useState(false);
-    const borderColor = clone(buttonStyle.backgroundColor);
+    const borderColor = clone(mergedStyle.backgroundColor);
 
     return (
         <button
@@ -49,28 +44,26 @@ export function Button({
                 borderTop: "none",
                 borderRight: "none",
                 borderLeft: "none",
-                backgroundColor: buttonStyle.backgroundColor.transformToCSS(),
+                backgroundColor: mergedStyle.backgroundColor.transformToCSS(),
                 height: isActive ? "calc(100% - 4px)" : "100%",
                 width: "100%",
-                borderRadius: buttonStyle.borderRadius,
+                borderRadius: mergedStyle.borderRadius,
                 marginTop: isActive ? "4px" : "0px",
-                color: buttonStyle.color,
+                color: mergedStyle.color,
                 textAlign: "center",
                 outline: "none",
                 fontWeight: 700,
                 fontStyle: "normal",
-                fontFamily: buttonStyle.font
+                fontFamily: mergedStyle.font
             }}
-            className="comic-neue"
-            onMouseDown={(e) => setIsActive(true)}
-            onMouseUp={(e) => setIsActive(false)}
-            onMouseLeave={(e) => setIsActive(false)}
-            onTouchStart={(e) => setIsActive(true)}
-            onTouchEnd={(e) => setIsActive(false)}
+            onMouseDown={() => setIsActive(true)}
+            onMouseUp={() => setIsActive(false)}
+            onMouseLeave={() => setIsActive(false)}
+            onTouchStart={() => setIsActive(true)}
+            onTouchEnd={() => setIsActive(false)}
             {...props}
         >
             {children}
         </button>
-    )
+    );
 }
-

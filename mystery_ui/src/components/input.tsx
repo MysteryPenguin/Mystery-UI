@@ -1,36 +1,35 @@
 import { HTMLAttributes, ReactNode, useState } from "react";
-import { config } from "../config";
 
 interface InputProps {
     text?: string;
     inputStyle?: InputStyleProps;
     children: ReactNode;
-    props?: InputPropsProps;
+    element?: HTMLAttributes<HTMLDivElement>;
+    input?: HTMLAttributes<HTMLInputElement>;
+    icon?: HTMLAttributes<HTMLDivElement>;
+    spanText?: HTMLAttributes<HTMLSpanElement>;
 }
 
 interface InputStyleProps {
     borderColor?: string;
 }
 
-interface InputPropsProps {
-    element?: HTMLAttributes<HTMLDivElement>;
-    input?: HTMLAttributes<HTMLInputElement>;
-    icon?: HTMLAttributes<HTMLDivElement>;
-    text?: HTMLAttributes<HTMLSpanElement>;
-}
-
 /**
  * 
  * A prefabricated input for faster and easier styling
  * 
+ * {@link(https://github.com/MysteryPenguin/Mystery-UI/wiki/Input) Mystery-UI Docs}
  */
 export function Input({
     inputStyle = {
-        borderColor: config.input.borderColor
+        borderColor: "white"
     },
     text = "",
     children,
-    props
+    element,
+    icon,
+    spanText,
+    input
 }: InputProps) {
 
     const [above, setAbove] = useState(false);
@@ -44,7 +43,7 @@ export function Input({
                 display: "flex",
                 justifyContent: "left"
             }}
-            {...props?.element}
+            {...element}
         >
             <input
                 style={{
@@ -56,7 +55,7 @@ export function Input({
                 }}
                 onFocus={() => setAbove(true)}
                 onBlur={(e) => { if (!e.target.value) setAbove(false) }}
-                {...props?.input}
+                {...input}
             />
             <div 
                 style={{
@@ -64,7 +63,7 @@ export function Input({
                     justifyContent: "center",
                     display: "flex"
                 }}
-                {...props?.icon}
+                {...icon}
             >
                 {children}
             </div>
@@ -75,7 +74,7 @@ export function Input({
                     fontSize: above ? "0.75em" : "1em",
                     transition: "all 0.4s ease"
                 }}
-                {...props?.text}
+                {...spanText}
             >
                 {text}
             </span>

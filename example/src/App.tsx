@@ -1,9 +1,11 @@
 import './App.css';
-import MysteryUI from "mystery-ui";
+import MysteryUI from "../../mystery_ui/src/index";
 
 function App() {
   return (
-      <MysteryUI.Input>Text</MysteryUI.Input>
+    <>
+      <MysteryUI.Button>Text</MysteryUI.Button>
+    </>
   )
 }
 
