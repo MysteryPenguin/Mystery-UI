@@ -18,8 +18,8 @@ interface ButtonStyleProps {
 /**
  * 
  * A button with a prefabricated design
- * @see https://github.com/MysteryPenguin/Mystery-UI/wiki/Button
  * 
+ * {@link https://github.com/MysteryPenguin/Mystery-UI/wiki|Mystery-UI Docs}
  */
 export function Button({
     buttonStyle = {
