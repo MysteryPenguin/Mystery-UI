@@ -22,6 +22,7 @@ interface InputPropsProps {
  * 
  * A prefabricated input for faster and easier styling
  * 
+ * {@link https://github.com/MysteryPenguin/Mystery-UI/wiki/Input|Mystery-UI Docs}
  */
 export function Input({ 
     inputStyle = {

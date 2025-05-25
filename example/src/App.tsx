@@ -1,5 +1,5 @@
 import './App.css';
-import MysteryUI from "../../mystery_ui/src/index";
+import * as MysteryUI from 'mystery-ui';
 
 function App() {
   return (
